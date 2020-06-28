@@ -4,10 +4,15 @@ import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
-  const routes = [
+const separator = " | "
+
+const routes = [
   {
     path: '/',
     name: 'Home',
+    meta: {
+      title: "Project Finch",
+    },
     component: Home
   },
   {
@@ -24,6 +29,11 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title || "Project Finch"+separator+to.name
+  next()
 })
 
 export default router
